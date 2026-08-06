@@ -1,0 +1,1 @@
+# Tipos de datoa, variables, operadores básicas de entrada y salida, operadores básicos
