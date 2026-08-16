@@ -1305,3 +1305,289 @@ Nota:
 Intenta ejecutar el código y permite que la función te muestre lo que puede hacer.
 
 ## La función input() con un argumento
+
+La función input() puede hacer algo más: puede mostrar un mensaje al usuario sin la ayuda de la función print().
+
+Se ha modificado el ejemplo un poco, observa el código:
+
+```python
+anything = input("Dime algo...")
+print("Mmm...", anything, "...¿En serio?")
+```
+
+Nota:
+
+- La función input() al ser invocada con un argumento, contiene una cadena con un mensaje.
+- El mensaje será mostrado en consola antes de que el usuario tenga oportunidad de escribir algo.
+- Después de esto input() hará su trabajo.
+
+Esta variante de la invocación de la función input() simplifica el código y lo hace más claro.
+
+## El resultado de la función input()
+
+Se ha dicho antes, pero hay que decirlo sin ambigüedades una vez más: el resultado de la función input() es una cadena.
+
+Una cadena que contiene todos los caracteres que el usuario introduce desde el teclado. No es un entero ni un flotante.
+
+Esto significa que no se debe utilizar como un argumento para operaciones matemáticas, por ejemplo, no se pueden utilizar estos datos para elevarlos al cuadrado, para dividirlos entre algo o por algo.
+
+```python
+anything = input("Inserta un número: ")
+something = anything ** 2.0
+print(anything, "al cuadrado es", something)
+```
+
+## La función input() - operaciones prohibidas
+
+Observa el código en el editor. Ejecútalo, inserta cualquier número, y oprime Enter.
+
+¿Qué es lo que ocurre?
+
+Python debió haberte dado la siguiente salida:
+
+```python
+Traceback (most recent call last):
+File ".main.py", line 4, in <module>
+something = anything ** 2.0
+TypeError: unsupported operand type(s) for ** or pow(): 'str' and 'float'
+```
+
+La última línea lo explica todo, se intentó aplicar el operador \*\* a 'str' (una cadena) acompañado por un 'float' (valor flotante).
+
+Esto está prohibido.
+
+Esto debe de ser obvio. ¿Puedes predecir el valor de "ser o no ser" elevado a la 2 potencia?
+
+No podemos. Python tampoco puede.
+
+¿Habremos llegado a un punto muerto? ¿Existirá alguna solución? Claro que la hay.
+
+## Conversión de datos (casting)
+
+Python ofrece dos simples funciones para especificar un tipo de dato y resolver este problema, aquí están: int() y float().
+
+Sus nombres indican cual es su función:
+
+- La función int() toma un argumento (por ejemplo, una cadena: int(string)) e intenta convertirlo a un valor entero; si llegase a fallar, el programa entero fallará también (existe una manera de solucionar esto, se explicará mas adelante).
+- La función float() toma un argumento (por ejemplo, una cadena: float(string)) e intenta convertirlo a flotante (el resto es lo mismo).
+
+Esto es muy simple y muy efectivo. Sin embargo, estas funciones se pueden invocar directamente pasando el resultado de la función input() directamente. No hay necesidad de emplear variables como almacenamiento intermedio.
+
+Se ha implementado esta idea en el editor, observa el código.
+
+¿Puedes imaginar como la cadena introducida por el usuario fluye desde la función input() hacía la función print()?
+
+Intenta ejecutar el código modificado. No olvides introducir un número valido.
+
+Prueba con diferentes valores, pequeños, grandes, negativos y positivos. El cero también es un buen valor a introducir.
+
+```python
+anything = float(input("Inserta un número: "))
+something = anything ** 2.0
+print(anything, "al cuadrado es", something)
+
+# Inserta un número: 2
+# 2.0 al cuadrado es 4.0
+```
+
+## Más acerca de la función input() y tipos de conversión
+
+El tener un equipo compuesto por input()-int()-float() abre muchas nuevas posibilidades.
+
+Eventualmente serás capaz de escribir programas completos, los cuales acepten datos en forma de números, los cuales serán procesados y se mostrarán los resultados.
+
+Por supuesto, estos programas serán muy primitivos y no muy utilizables, debido a que no pueden tomar decisiones, y consecuentemente no son capaces de reaccionar acorde a cada situación.
+
+Sin embargo, esto no es un problema; se explicará como solucionarlo pronto.
+
+El siguiente ejemplo hace referencia al programa anterior que calcula la longitud de la hipotenusa. Vamos a reescribirlo, para que pueda leer las longitudes de los catetos desde la consola.
+
+Revisa la ventana del editor, así es como se ve ahora.
+
+```python
+leg_a = float(input("Inserta la longitud del primer cateto: "))
+leg_b = float(input("Inserta la longitud del segundo cateto: "))
+hypo = (leg_a**2 + leg_b**2) ** .5
+print("La longitud de la hipotenusa es:", hypo)
+
+# Inserta la longitud del primer cateto: 2
+# Inserta la longitud del segundo cateto: 2
+# La longitud de la hipotenusa es: 2.8284271247461903
+```
+
+Este programa le preguntó al usuario los dos catetos, calcula la hipotenusa e imprime el resultado.
+
+Ejecútalo de nuevo e intenta introducir valores negativos.
+
+El programa desafortunadamente, no reacciona correctamente a este error.
+
+Vamos a ignorar esto por ahora. Regresaremos a ello pronto.
+
+Toma en cuenta que en el programa que puede ver en el editor, la variable hypo se usa con un solo propósito: guardar el valor calculado entre la ejecución de la línea de código contigua.
+
+Debido a que la función print() acepta una expresión como argumento, se puede quitar la variable del código.
+
+Como se muestra en el siguiente código:
+
+````python
+leg_a = float(input("Inserta la longitud del primer cateto: "))
+leg_b = float(input("Inserta la longitud del segundo cateto: "))
+print("La longitud de la hipotenusa es: ", (leg_a**2 + leg_b**2) ** .5)```
+````
+
+## Operadores de cadenas - introducción
+
+Es tiempo de regresar a estos dos operadores aritméticos: + y \*.
+
+Ambos tienen una función secundaría. Son capaces de hacer algo más que sumar y multiplicar.
+
+Los hemos visto en acción cuando sus argumentos son (flotantes o enteros).
+
+Ahora veremos que son capaces también de manejar o manipular cadenas, aunque, en una manera muy específica.
+
+### Contactenación
+
+El signo de + (más), al ser aplicado a dos cadenas, se convierte en un operador de concatenación:
+
+`string + string`
+
+Simplemente concatena (junta) dos cadenas en una. Por supuesto, puede ser utilizado más de una vez en una misma expresión, y en tal contexto se comporta con enlazado del lado izquierdo.
+
+En contraste con el operador aritmético, el operador de concatenación no es conmutativo, por ejemplo, "ab" + "ba" no es lo mismo que "ba" + "ab".
+
+No olvides, si se desea que el signo + sea un concatenador, no un sumador, solo se debe asegurar que ambos argumentos sean cadenas.
+
+No se pueden mezclar los tipos de datos aquí.
+
+Este es un programa sencillo que muestra como funciona el signo + como concatenador:
+
+```python
+fnam = input("¿Me puedes dar tu nombre por favor? ")
+lnam = input("¿Me puedes dar tu apellido por favor? ")
+print("Gracias.")
+print("\nTu nombre es " + fnam + " " + lnam + ".")
+```
+
+Nota: El utilizar + para concatenar cadenas te permite construir la salida de una manera más precisa, en comparación de utilizar únicamente la función print(), aún cuando se enriquezca con los argumentos end= y sep=.
+
+Ejecuta el código y comprueba si la salida es igual a tus predicciones.
+
+## Replicación
+
+El signo de \* (asterisco), cuando es aplicado a una cadena y a un número (o a un número y cadena) se convierte en un operador de replicación.
+
+```python
+string * number
+number * string
+```
+
+Replica la cadena el numero de veces indicado por el número.
+
+Por ejemplo:
+
+```python
+"James" * 3 produce "JamesJamesJames"
+3 * "an" produce "ananan"
+5 * "2" (o "2" * 5) produce "22222" (no 10!)
+
+```
+
+RECUERDA
+
+Un número menor o igual que cero produce una cadena vacía.
+
+Este sencillo programa "dibuja" un rectángulo, haciendo uso del operador (+), pero en un nuevo rol:
+
+```python
+print("+" + 10 * "-" + "+")
+print(("|" + " " * 10 + "|\n") * 5, end="")
+print("+" + 10 * "-" + "+")
+```
+
+Nota como se ha utilizado el paréntesis en la segunda línea de código.
+
+¡Intenta practicar para crear otras figuras o tus propias obras de arte!
+
+```python
++----------+
+|          |
+|          |
+|          |
+|          |
+|          |
++----------+
+```
+
+## Conversión de tipos de datos: str()
+
+A estas alturas ya sabes como emplear las funciones int() y float() para convertir una cadena a un número.
+
+Este tipo de conversión no es en un solo sentido. También se puede convertir un numero a una cadena, lo cual es más fácil y rápido, esta operación es posible hacerla siempre.
+
+Una función capaz de hacer esto se llama str():
+
+```python
+str(number)
+```
+
+Sinceramente, puede hacer mucho más que transformar números en cadenas, eso lo veremos después.
+
+### El "triángulo rectángulo" de nuevo
+
+Este es el programa del "triángulo rectángulo" visto anteriormente:
+
+```python
+leg_a = float(input("Inserta la longitud del primer cateto: "))
+leg_b = float(input("Inserta la longitud del segundo cateto: "))
+print("La longitud de la hipotenusa es " + str((leg_a**2 + leg_b**2) ** .5))
+```
+
+Se ha modificado un poco para mostrar cómo es que la función str() trabaja. Gracias a esto, podemos pasar el resultado entero a la función print() como una sola cadena, sin utilizar las comas.
+
+Has hecho algunos pasos importantes en tu camino hacia la programación de Python.
+
+Ya conoces los tipos de datos básicos y un conjunto de operadores fundamentales. Sabes cómo organizar la salida y cómo obtener datos del usuario. Estos son fundamentos muy sólidos para el Módulo 3. Pero antes de pasar al siguiente módulo, hagamos unos cuantos laboratorios y resumamos todo lo que has aprendido en esta sección.
+
+### Puntos clave
+
+1. La función print() envía datos a la consola, mientras que la función input() obtiene datos de la consola.
+
+2. La función input() viene con un parámetro inicial: un mensaje de tipo cadena para el usuario. Permite escribir un mensaje antes de la entrada del usuario, por ejemplo:
+
+```python
+name = input("Ingresa tu nombre: ")
+print("Hola, " + name + ". ¡Un gusto conocerte!")
+```
+
+3. Cuando la función input() es llamada o invocada, el flujo del programa se detiene, el símbolo del cursor se mantiene parpadeando (le está indicando al usuario que tome acción ya que la consola está en modo de entrada) hasta que el usuario haya ingresado un dato y/o haya presionado la tecla Enter.
+
+NOTA
+Puedes probar la funcionalidad completa de la función input() localmente en tu máquina. Por razones de optimización, se ha limitado el máximo número de ejecuciones en Edube a solo algunos segundos únicamente. Ve a Sandbox, copia y pega el código que está arriba, ejecuta el programa y espera unos segundos. Tu programa debe detenerse después de unos segundos. Ahora abre IDLE, y ejecuta el mismo programa ahí -¿Puedes notar alguna diferencia?
+
+Consejo: La característica mencionada anteriormente de la función input() puede ser utilizada para pedirle al usuario que termine o finalice el programa. Observa el siguiente código:
+
+```python
+name = input("Ingresa tu nombre: ")
+print("Hola, " + name + ". ¡Un gusto conocerte!")
+
+print("\nPresiona la tecla Enter para finalizar el programa.")
+input()
+print("FIN.")
+```
+
+4. El resultado de la función input() es una cadena. Se pueden unir cadenas unas con otras a través del operador de concatenación (+). Observa el siguiente código:
+
+```python
+num_1 = input("Ingresa el primer número: ") # Ingresa 12
+num_2 = input("Ingresa el segundo número: ") # Ingresa 21
+
+print(num_1 + num_2) el programa retorna 1221
+```
+
+5. También se pueden multiplicar (\* - replicación) cadenas, por ejemplo:
+
+```python
+
+my_input = input("Ingresa algo: ") # Ejemplo: hola
+print(my_input * 3) # Salida esperada: holaholahola
+```
