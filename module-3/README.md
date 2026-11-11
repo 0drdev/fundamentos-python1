@@ -943,3 +943,66 @@ else:
 Observa con atención, el usuario ingresa el primer número antes de que el programa ingrese al bucle while. El número siguiente se ingresa cuando el programa ya está en el bucle.
 
 De nuevo: ejecútalo, pruébalo y experimenta con él.
+
+## El bucle while y la rama else
+
+Ambos bucles while y for, tienen una característica interesante (y rara vez se usa).
+
+Te mostraremos como funciona: intenta juzgar por ti mismo si es utilizable.
+
+En otras palabras, trata de convencerte si la función es valiosa y útil, o solo es azúcar sintáctica.
+
+Echa un vistazo al fragmento en el editor. Hay algo extraño al final: la palabra reservada else.
+
+Como pudiste haber sospechado, los bucles también pueden tener la rama else, como los if.
+
+La rama else del bucle siempre se ejecuta una vez, independientemente de si el bucle ha entrado o no en su cuerpo.
+
+¿Puedes adivinar la salida? Ejecuta el programa para comprobar si tenías razón.
+
+Modifica el fragmento un poco para que el bucle no tenga oportunidad de ejecutar su cuerpo ni una sola vez:
+
+```python
+i = 5
+while i < 5:
+    print(i)
+    i += 1
+else:
+    print("else:", i)
+
+```
+
+El estado del while es False al principio, ¿puedes verlo?
+
+Ejecuta y prueba el programa, y verifica si se ha ejecutado o no la rama else.
+
+##El bucle for y la rama else
+Los bucles for se comportan de manera un poco diferente: echa un vistazo al fragmento en el editor y ejecútalo.
+
+La salida puede ser un poco sorprendente.
+
+La variable i conserva su último valor.
+
+Modifica el código un poco para realizar un experimento más.
+
+```python3
+i = 111
+for i in range(2, 1):
+    print(i)
+else:
+    print("else:", i)
+```
+
+¿Puedes adivinar la salida?
+
+El cuerpo del bucle no se ejecutará aquí en absoluto. Nota: hemos asignado la variable i antes del bucle.
+
+Ejecuta el programa y verifica su salida.
+
+Cuando el cuerpo del bucle no se ejecuta, la variable de control conserva el valor que tenía antes del bucle.
+
+Nota: si la variable de control no existe antes de que comience el bucle, no existirá cuando la ejecución llegue a la rama else.
+
+¿Cómo te sientes acerca de esta variante de else?
+
+Ahora vamos a informarte sobre otros tipos de variables. Nuestras variables actuales solo pueden almacenar un valor a la vez, pero hay variables que pueden hacer mucho más; pueden almacenar tantos valores como desees.
